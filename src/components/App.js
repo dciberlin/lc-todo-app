@@ -1,12 +1,13 @@
 import React from 'react';
 import '../css/App.scss';
-import IntroText from './IntroText';
+import Navigation from './Navigation';
+import MainContainer from './MainContainer';
 
 function App() {
   return (
     <div className="app">
-      I come from the APP component.
-      <IntroText />
+      <Navigation></Navigation>
+      <MainContainer></MainContainer>
     </div>
   );
 }
