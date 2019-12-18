@@ -1,7 +1,7 @@
 import React from 'react';
 import ToDoItem from './ToDoItem';
 
-function ToDosContainer(props) {
+const ToDosContainer = props => {
   const data = props.items;
 
   const todoItems = data.map(el => {
@@ -18,6 +18,6 @@ function ToDosContainer(props) {
       )}
     </div>
   );
-}
+};
 
 export default ToDosContainer;

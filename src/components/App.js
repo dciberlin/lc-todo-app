@@ -3,13 +3,13 @@ import '../css/App.scss';
 import Navigation from './Navigation';
 import MainContainer from './MainContainer';
 
-function App() {
+const App = () => {
   return (
     <div className="app">
       <Navigation></Navigation>
       <MainContainer></MainContainer>
     </div>
   );
-}
+};
 
 export default App;

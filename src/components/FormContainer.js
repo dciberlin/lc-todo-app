@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FormContainer() {
+const FormContainer = () => {
   return (
     <div className="form-container">
       <form className="todo-form">
@@ -11,6 +11,6 @@ function FormContainer() {
       </form>
     </div>
   );
-}
+};
 
 export default FormContainer;
