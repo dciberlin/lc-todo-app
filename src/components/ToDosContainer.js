@@ -2,12 +2,24 @@ import React from 'react';
 import ToDoItem from './ToDoItem';
 
 class ToDosContainer extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  updateItem = id => {
+    this.props.updateFromChild(id);
+  };
+
   render() {
     const data = this.props.items;
 
     const todoItems = data.map(el => {
       return (
-        <ToDoItem key={el.id} text={el.text} status={el.status}></ToDoItem>
+        <ToDoItem
+          key={el.id}
+          data={el}
+          handleUpdate={this.updateItem}
+        ></ToDoItem>
       );
     });
 
