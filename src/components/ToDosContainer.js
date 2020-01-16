@@ -1,6 +1,5 @@
 import React from 'react';
 import ToDoItem from './ToDoItem';
-import friend from '../images/friend.png';
 
 class ToDosContainer extends React.Component {
   updateItem = item => {
@@ -22,16 +21,10 @@ class ToDosContainer extends React.Component {
 
     return (
       <div className="todos-container">
-        {data.length > 0 ? (
+        {data.length > 0 && (
           <div className="todos">
             <h5>TODOS</h5>
             {todoItems}
-          </div>
-        ) : (
-          <div className="todos">
-            <h5>TODOS</h5>
-            <img src={friend}></img>
-            <p>Use the form to create a new todo!</p>
           </div>
         )}
       </div>

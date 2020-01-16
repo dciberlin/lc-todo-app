@@ -52,6 +52,11 @@ body {
     padding: 20px 10px;
     height: calc(100% - #{$headerHeight});
     overflow: scroll;
+    .feedback {
+      color: red;
+      margin-top: 5px;
+      margin-left: 5px;
+    }
     .form-container {
       .input-item {
         input {
@@ -66,6 +71,14 @@ body {
         }
       }
     }
+    .empty-screen {
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
+      img {
+        height: 200px;
+      }
+    }
     .todos-container {
       .item {
         padding: 5px 10px;
@@ -76,11 +89,6 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-      }
-      .todos {
-        img {
-          width: 100px;
-        }
       }
     }
     .todones-container {
@@ -113,6 +121,9 @@ body {
   margin: 100px auto;
   -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
+  position: absolute;
+  top: 0;
+  right: 10px;
 }
 
 @-webkit-keyframes sk-rotateplane {

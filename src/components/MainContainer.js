@@ -3,13 +3,16 @@ import FormContainer from './FormContainer';
 import ToDosContainer from './ToDosContainer';
 import ToDonesContainer from './ToDonesContainer';
 import Spinner from './Spinner';
+import friend from '../images/friend.png';
 
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      loading: true
+      loading: false,
+      feedback: false,
+      showFriend: false
     };
   }
 
@@ -21,16 +24,33 @@ class MainContainer extends React.Component {
     //     this.setState({ items: data });
     //   });
     // });
-
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({ items: data, loading: false });
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.length === 0)
+        this.setState({
+          items: data,
+          loading: false,
+          feedback: false,
+          showFriend: true
+        });
+      else {
+        this.setState({
+          items: data,
+          loading: false,
+          feedback: false,
+          showFriend: false
+        });
+      }
+    } catch (error) {
+      this.setState({ feedback: true });
+    }
   }
 
   handleUpdate = async item => {
     const url = `https://ds-todo-api.now.sh/todos/${item._id}`;
     const status = !item.status;
-
+    this.setState({ loading: true });
     try {
       const response = await fetch(url, {
         method: 'PUT',
@@ -48,20 +68,38 @@ class MainContainer extends React.Component {
         return el;
       });
 
-      this.setState({ items: updatedItems });
+      this.setState({
+        items: updatedItems,
+        loading: false,
+        feedback: false
+      });
     } catch (error) {
-      console.log(`EEEERROR: `, error);
+      this.setState({ feedback: true });
     }
   };
 
-  handleAddTodo = value => {
-    const newItem = {
-      text: value,
-      status: false,
-      id: new Date().getTime()
-    };
+  handleAddTodo = async value => {
+    const url = `https://ds-todo-api.now.sh/todos`;
+    this.setState({ loading: true });
 
-    this.setState({ items: [...this.state.items, newItem] });
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: value })
+      });
+      const item = await response.json();
+      this.setState({
+        items: [...this.state.items, item],
+        feedback: false,
+        showFriend: false,
+        loading: false
+      });
+    } catch (error) {
+      this.setState({ feedback: true });
+    }
   };
 
   render() {
@@ -73,9 +111,13 @@ class MainContainer extends React.Component {
     return (
       <main className="main-container">
         <FormContainer addTodo={this.handleAddTodo}></FormContainer>
-        {this.state.loading ? (
-          <Spinner></Spinner>
-        ) : (
+        <div className="feedback">
+          {this.state.feedback && (
+            <small>Oops, our cat broke the internet. Please try again...</small>
+          )}
+        </div>
+        {this.state.loading && <Spinner></Spinner>}
+        {!this.state.showFriend > 0 ? (
           <span>
             <ToDosContainer
               items={todos}
@@ -86,6 +128,11 @@ class MainContainer extends React.Component {
               updateFromChild={this.handleUpdate}
             ></ToDonesContainer>
           </span>
+        ) : (
+          <div className="empty-screen">
+            <img src={friend}></img>
+            <p>Use the form to create a new todo!</p>
+          </div>
         )}
       </main>
     );
