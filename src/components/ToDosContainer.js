@@ -3,8 +3,8 @@ import ToDoItem from './ToDoItem';
 import friend from '../images/friend.png';
 
 class ToDosContainer extends React.Component {
-  updateItem = id => {
-    this.props.updateFromChild(id);
+  updateItem = item => {
+    this.props.updateFromChild(item);
   };
 
   render() {

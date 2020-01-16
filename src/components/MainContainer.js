@@ -27,17 +27,31 @@ class MainContainer extends React.Component {
     this.setState({ items: data, loading: false });
   }
 
-  handleUpdate = id => {
-    const items = this.state.items;
-    const updatedItems = items.map(el => {
-      if (id === el.id) {
-        el.status = !el.status;
-      }
+  handleUpdate = async item => {
+    const url = `https://ds-todo-api.now.sh/todos/${item._id}`;
+    const status = !item.status;
 
-      return el;
-    });
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status })
+      });
+      const data = await response.json();
+      const items = this.state.items;
+      const updatedItems = items.map(el => {
+        if (item._id === el._id) {
+          el.status = !el.status;
+        }
+        return el;
+      });
 
-    this.setState({ items: updatedItems });
+      this.setState({ items: updatedItems });
+    } catch (error) {
+      console.log(`EEEERROR: `, error);
+    }
   };
 
   handleAddTodo = value => {
