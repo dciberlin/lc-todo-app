@@ -10,7 +10,7 @@ class MainContainer extends React.Component {
     super(props);
     this.state = {
       items: [],
-      loading: false,
+      loading: true,
       feedback: false,
       showFriend: false
     };
