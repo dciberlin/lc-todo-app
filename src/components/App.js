@@ -6,7 +6,7 @@ import MainContainer from './MainContainer';
 const App = () => {
   return (
     <div className="app">
-      <Navigation></Navigation>
+      {/* <Navigation></Navigation> */}
       <MainContainer></MainContainer>
     </div>
   );
