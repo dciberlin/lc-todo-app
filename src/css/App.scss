@@ -7,17 +7,49 @@ $headerHeight: 60px;
 
 * {
   font-family: monospace;
+  box-sizing: border-box;
+  word-break: break-word;
 }
 
 body {
   margin: 0;
+  background: $mainBg;
 }
 
 .app {
-  height: 100vh;
-  background: $mainBg;
+  height: 100%;
   color: white;
-  overflow: hidden;
+  .news-container {
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+    padding: 10px;
+
+    .col {
+      padding-left: 30px; /* gutter size */
+      background-clip: padding-box;
+      .article {
+        background: $navBg;
+        border-radius: 10px;
+        margin-bottom: 30px;
+
+        .img {
+          img {
+            border-radius: 10px 10px 0 0;
+            width: 100%;
+          }
+        }
+        .info {
+          padding: 5px;
+          margin: 5px;
+          .title {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
   .btn {
     border: none;
     font-size: 1.2em;
@@ -37,21 +69,30 @@ body {
   }
   nav {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: end;
+    justify-content: left;
     background: $navBg;
     min-height: 60px;
     padding: 10px;
     height: $headerHeight;
     position: sticky;
+    top: 0;
     a {
       color: white;
+    }
+    ul {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: normal;
+      list-style: none;
+      li {
+        margin-left: 5px;
+      }
     }
   }
   .main-container {
     padding: 20px 10px;
-    height: calc(100% - #{$headerHeight});
-    overflow: scroll;
     .feedback {
       color: red;
       margin-top: 5px;

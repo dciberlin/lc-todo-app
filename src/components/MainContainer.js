@@ -3,7 +3,7 @@ import FormContainer from './FormContainer';
 import ToDosContainer from './ToDosContainer';
 import ToDonesContainer from './ToDonesContainer';
 import Spinner from './Spinner';
-import friend from '../images/friend.png';
+import NotFound from './NotFound';
 
 class MainContainer extends React.Component {
   constructor(props) {
@@ -129,10 +129,7 @@ class MainContainer extends React.Component {
             ></ToDonesContainer>
           </span>
         ) : (
-          <div className="empty-screen">
-            <img src={friend}></img>
-            <p>Use the form to create a new todo!</p>
-          </div>
+          <NotFound></NotFound>
         )}
       </main>
     );
