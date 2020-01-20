@@ -117,7 +117,7 @@ class MainContainer extends React.Component {
           )}
         </div>
         {this.state.loading && <Spinner></Spinner>}
-        {!this.state.showFriend > 0 ? (
+        {!this.state.showFriend ? (
           <span>
             <ToDosContainer
               items={todos}
