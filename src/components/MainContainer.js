@@ -17,96 +17,65 @@ class MainContainer extends React.Component {
   }
 
   async componentDidMount() {
-    const url = `https://ds-todo-api.now.sh/todos`;
-
-    // fetch(url).then(response => {
-    //   response.json().then(data => {
-    //     this.setState({ items: data });
-    //   });
-    // });
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      if (data.length === 0)
-        this.setState({
-          items: data,
-          loading: false,
-          feedback: false,
-          showFriend: true
-        });
-      else {
-        this.setState({
-          items: data,
-          loading: false,
-          feedback: false,
-          showFriend: false
-        });
+    const data = [
+      {
+        status: true,
+        _id: '5e2dfbf4cf11250007b73900',
+        text: 'hey, go somewhere',
+        date: '2020-01-26T20:52:04.184Z',
+        __v: 0
+      },
+      {
+        status: true,
+        _id: '5e2dfdf1cf11250007b73901',
+        text: 'Type your next todo item',
+        date: '2020-01-26T21:00:33.974Z',
+        __v: 0
+      },
+      {
+        status: false,
+        _id: '5e2e087405047b0007b54726',
+        text: 'hey ',
+        date: '2020-01-26T21:45:24.014Z',
+        __v: 0
+      },
+      {
+        status: false,
+        _id: '5e2e087d05047b0007b54727',
+        text: 'hey you',
+        date: '2020-01-26T21:45:33.905Z',
+        __v: 0
+      },
+      {
+        status: false,
+        _id: '5e2e094005047b0007b54728',
+        text: 'something you have to do',
+        date: '2020-01-26T21:48:48.693Z',
+        __v: 0
       }
-    } catch (error) {
-      this.setState({ feedback: true });
+    ];
+
+    if (data.length === 0)
+      this.setState({
+        items: data,
+        loading: false,
+        feedback: false,
+        showFriend: true
+      });
+    else {
+      this.setState({
+        items: data,
+        loading: false,
+        feedback: false,
+        showFriend: false
+      });
     }
   }
-
-  handleUpdate = async item => {
-    const url = `https://ds-todo-api.now.sh/todos/${item._id}`;
-    const status = !item.status;
-    this.setState({ loading: true });
-    try {
-      const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ status })
-      });
-      const data = await response.json();
-      const items = this.state.items;
-      const updatedItems = items.map(el => {
-        if (item._id === el._id) {
-          el.status = !el.status;
-        }
-        return el;
-      });
-
-      this.setState({
-        items: updatedItems,
-        loading: false,
-        feedback: false
-      });
-    } catch (error) {
-      this.setState({ feedback: true });
-    }
-  };
-
-  handleAddTodo = async value => {
-    const url = `https://ds-todo-api.now.sh/todos`;
-    this.setState({ loading: true });
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text: value })
-      });
-      const item = await response.json();
-      this.setState({
-        items: [...this.state.items, item],
-        feedback: false,
-        showFriend: false,
-        loading: false
-      });
-    } catch (error) {
-      this.setState({ feedback: true });
-    }
-  };
 
   render() {
     const data = this.state.items;
     const todos = data.filter(el => !el.status);
     const todones = data.filter(el => el.status);
-    // const todos = data.filter(el => {if (!el.status) return el;});
 
     return (
       <main className="main-container">
@@ -119,14 +88,8 @@ class MainContainer extends React.Component {
         {this.state.loading && <Spinner></Spinner>}
         {!this.state.showFriend ? (
           <span>
-            <ToDosContainer
-              items={todos}
-              updateFromChild={this.handleUpdate}
-            ></ToDosContainer>
-            <ToDonesContainer
-              items={todones}
-              updateFromChild={this.handleUpdate}
-            ></ToDonesContainer>
+            <ToDosContainer items={todos}></ToDosContainer>
+            <ToDonesContainer items={todones}></ToDonesContainer>
           </span>
         ) : (
           <NotFound></NotFound>
