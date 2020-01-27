@@ -39,6 +39,18 @@ const initialState = {
 };
 
 const todoReducer = (state = initialState, action) => {
+  if (action.type === 'UPDATE_TODO') {
+    const items = state.items.map(el => {
+      if (el._id === action.payload._id) {
+        el.status = !el.status;
+      }
+
+      return el;
+    });
+
+    return { items: items };
+  }
+
   return { ...state };
 };
 
