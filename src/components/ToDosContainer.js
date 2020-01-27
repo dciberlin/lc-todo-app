@@ -1,5 +1,6 @@
 import React from 'react';
 import ToDoItem from './ToDoItem';
+import { connect } from 'react-redux';
 
 class ToDosContainer extends React.Component {
   render() {
@@ -22,4 +23,8 @@ class ToDosContainer extends React.Component {
   }
 }
 
-export default ToDosContainer;
+const mapStateToProps = state => {
+  return { items: state.items.filter(el => !el.status) };
+};
+
+export default connect(mapStateToProps)(ToDosContainer);
