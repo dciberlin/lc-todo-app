@@ -11,3 +11,10 @@ export const addTodo = payload => {
     payload
   };
 };
+
+export const showLoading = payload => {
+  return {
+    type: 'SHOW_LOADING',
+    payload
+  };
+};

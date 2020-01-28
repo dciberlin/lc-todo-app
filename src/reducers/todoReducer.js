@@ -35,7 +35,10 @@ const initialState = {
       date: '2020-01-26T21:48:48.693Z',
       __v: 0
     }
-  ]
+  ],
+  loading: false,
+  feedback: false,
+  showFriend: false
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -48,7 +51,8 @@ const todoReducer = (state = initialState, action) => {
       return el;
     });
 
-    return { items: items };
+    state.loading = false;
+    return Object.assign({}, state);
   }
 
   if (action.type === 'ADD_TODO') {
@@ -61,10 +65,16 @@ const todoReducer = (state = initialState, action) => {
     };
 
     state.items.push(newItem);
+    state.loading = false;
     return Object.assign({}, state);
   }
 
-  return { ...state };
+  if (action.type === 'SHOW_LOADING') {
+    state.loading = true;
+    return Object.assign({}, state);
+  }
+
+  return state;
 };
 
 export default todoReducer;

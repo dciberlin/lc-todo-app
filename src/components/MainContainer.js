@@ -9,43 +9,22 @@ import { connect } from 'react-redux';
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      items: [],
-      loading: true,
-      feedback: false,
-      showFriend: false
-    };
+    this.state = {};
   }
 
-  // async componentDidMount() {
-  //   if (data.length === 0)
-  //     this.setState({
-  //       items: data,
-  //       loading: false,
-  //       feedback: false,
-  //       showFriend: true
-  //     });
-  //   else {
-  //     this.setState({
-  //       items: data,
-  //       loading: false,
-  //       feedback: false,
-  //       showFriend: false
-  //     });
-  //   }
-  // }
-
   render() {
+    console.log('I AM RERENDERING');
+    console.log('MAINCONTAINER PROPS: ', this.props);
     return (
       <main className="main-container">
         <FormContainer addTodo={this.handleAddTodo}></FormContainer>
         <div className="feedback">
-          {this.state.feedback && (
+          {this.props.feedback && (
             <small>Oops, our cat broke the internet. Please try again...</small>
           )}
         </div>
-        {this.state.loading && <Spinner></Spinner>}
-        {!this.state.showFriend ? (
+        {this.props.loading && <Spinner></Spinner>}
+        {!this.props.showFriend ? (
           <span>
             <ToDosContainer></ToDosContainer>
             <ToDonesContainer></ToDonesContainer>
@@ -59,7 +38,12 @@ class MainContainer extends React.Component {
 }
 
 const mapsStateToProps = state => {
-  return { items: state.items };
+  console.log('I AM ABOUT TO RERENDER');
+  return {
+    feedback: state.feedback,
+    loading: state.loading,
+    showFriend: state.showFriend
+  };
 };
 
 export default connect(mapsStateToProps)(MainContainer);
