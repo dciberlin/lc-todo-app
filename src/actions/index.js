@@ -4,3 +4,10 @@ export const updateTodo = payload => {
     payload
   };
 };
+
+export const addTodo = payload => {
+  return {
+    type: 'ADD_TODO',
+    payload
+  };
+};

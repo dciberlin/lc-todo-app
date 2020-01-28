@@ -1,4 +1,6 @@
 import React from 'react';
+import { addTodo } from '../actions';
+import { connect } from 'react-redux';
 
 class FormContainer extends React.Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class FormContainer extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ value: '' });
+    this.props.addTodo(this.state.value);
   }
 
   render() {
@@ -37,4 +40,8 @@ class FormContainer extends React.Component {
   }
 }
 
-export default FormContainer;
+const mapStateToProps = state => {
+  return state;
+};
+
+export default connect(mapStateToProps, { addTodo })(FormContainer);
