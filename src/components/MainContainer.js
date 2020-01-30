@@ -5,11 +5,16 @@ import ToDonesContainer from './ToDonesContainer';
 import Spinner from './Spinner';
 import NotFound from './NotFound';
 import { connect } from 'react-redux';
+import { fetchData } from '../actions';
 
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.fetchData();
   }
 
   render() {
@@ -38,7 +43,6 @@ class MainContainer extends React.Component {
 }
 
 const mapsStateToProps = state => {
-  console.log('I AM ABOUT TO RERENDER');
   return {
     feedback: state.feedback,
     loading: state.loading,
@@ -46,4 +50,4 @@ const mapsStateToProps = state => {
   };
 };
 
-export default connect(mapsStateToProps)(MainContainer);
+export default connect(mapsStateToProps, { fetchData })(MainContainer);
