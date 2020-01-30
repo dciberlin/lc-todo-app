@@ -1,4 +1,4 @@
-import { fetchTodos } from '../utils/helpers';
+import { fetchTodos, newTodo } from '../utils/helpers';
 
 export const updateTodo = payload => {
   return {
@@ -8,9 +8,12 @@ export const updateTodo = payload => {
 };
 
 export const addTodo = payload => {
-  return {
-    type: 'ADD_TODO',
-    payload
+  return async dispatch => {
+    const newItem = await newTodo(payload);
+    dispatch({
+      type: 'ADD_TODO',
+      payload: newItem
+    });
   };
 };
 

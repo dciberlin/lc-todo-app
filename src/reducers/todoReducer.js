@@ -20,17 +20,7 @@ const todoReducer = (state = initialState, action) => {
   }
 
   if (action.type === 'ADD_TODO') {
-    const newItem = {
-      status: false,
-      _id: new Date().getTime(),
-      text: action.payload,
-      date: '2020-01-26T20:52:04.184Z',
-      __v: 0
-    };
-
-    // state.items.push(newItem);
-    state.items = [...state.items, newItem];
-
+    state.items = [...state.items, action.payload];
     state.loading = false;
     return Object.assign({}, state);
   }

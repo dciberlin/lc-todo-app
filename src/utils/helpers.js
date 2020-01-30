@@ -7,3 +7,21 @@ export const fetchTodos = async () => {
     return [];
   }
 };
+
+export const newTodo = async value => {
+  const url = 'https://ds-todo-api.now.sh/todos';
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text: value })
+    });
+    const item = await response.json();
+    return item;
+  } catch (error) {
+    return [];
+  }
+};

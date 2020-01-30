@@ -19,9 +19,7 @@ class FormContainer extends React.Component {
     e.preventDefault();
     this.setState({ value: '' });
     this.props.showLoading();
-    setTimeout(() => {
-      this.props.addTodo(this.state.value);
-    }, 2000);
+    this.props.addTodo(this.state.value);
   }
 
   render() {
